@@ -1,0 +1,60 @@
+---
+import { Constants } from '~/types';
+import ButtonLink from './ButtonLink.astro';
+
+
+// const { header, subline, intro } = Astro.props
+export interface Props {
+  intro?: string;
+  header: string;
+  subline: string;
+  classes?: string;
+  showCta: boolean;
+  showScrollDown?:boolean; 
+  page?: string
+}
+
+const { intro, header, subline, classes, page, showCta } = Astro.props
+const commonClasses = "absolute z-[1] w-full h-full bg-no-repeat bg-cover bg-center bg-shift"
+const className = classes ? `${commonClasses} ${classes}` : `${commonClasses} bg-home-mb md:bg-home-dk`
+
+const heroFontColor = page === Constants.HOME ? "" : "text-white"
+
+--- 
+<section
+  aria-label="hero"
+  class:list={[
+    "flex",
+    "items-center",
+    "justify-center",
+    heroFontColor,
+    "text-center",
+    "bg-gray-900",
+    "relative",
+    className,
+    "py-4"
+  ]}>
+  <div
+    class:list={[
+      "flex",
+      "items-center",
+      "justify-center",
+      "flex-col",
+      "gap-2",
+      "h-[308px]",
+      "md:h-[236px]",
+      "px-4"
+    ]}>
+		{ intro ? (<p class="text-lg" slot="intro">{intro}</p>) : "" }
+		<h1 id="header" class="text-5xl font-bold font-roboto capitalize">{header}</h1>
+		<p id="subline" class="md:max-w-xl mx-auto" slot="subline" set:html={subline}></p> 
+    {
+      showCta && (
+        <div class="w-full flex flex-col md:flex-row gap-2 justify-center items-center">
+          <ButtonLink title="know more" href="/about" className="bt bt-orange w-full md:w-fit" type="link" />
+          <ButtonLink title="register" href="/register" className="bt bt-white w-full md:w-fit" type="link" />
+        </div>
+      )
+    }
+  </div>
+</section>

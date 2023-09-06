@@ -1,0 +1,26 @@
+---
+import CloseMobileNavBtn from "../partials/CloseMobileNavBtn.astro";
+import DarkModeBtn from "../partials/DarkModeBtn.astro";
+import MobileNavBackBtn from "../partials/MobileNavBackBtn.astro";
+
+
+---
+<div class="bg-gray-200 dark:bg-dark-alternate -mobile-navigation transition-transform duration-200 ease-in-out" data-type="mobile navigation">
+  <div class="-content relative">
+    <div class="-top -hide-back-bt">
+      <MobileNavBackBtn />
+      <DarkModeBtn id="darkModebtSidebar" /> 
+      <CloseMobileNavBtn />
+    </div>
+
+    <div class="-links absolute active transition-transform duration-200 ease-in-out" data-name="home">
+      <a href="/" data-type="menu" aria-label="home" rel="prefetch" class="pl-4">home</a>
+      <a href="/about" data-type="menu" aria-label="about" rel="prefetch" class="pl-4">About</a>
+      <a href="/members" data-type="menu" aria-label="members" rel="prefetch" class="pl-4">Members</a>
+      <a href="/events" data-type="menu" aria-label="events" rel="prefetch" class="pl-4">Events</a>
+      <a href="/team" data-type="menu" aria-label="team" rel="prefetch" class="pl-4">The Team</a>
+      <a href="/register" data-type="menu" aria-label="register" rel="prefetch" class="pl-4">Register</a>
+      <a href="/contact" data-type="menu" aria-label="contact" rel="prefetch" class="pl-4">Contact</a>
+    </div>
+  </div>
+</div>

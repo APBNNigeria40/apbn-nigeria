@@ -1,0 +1,56 @@
+---
+import ButtonLink from "~/components/partials/ButtonLink.astro";
+import Layout from "./Layout.astro";
+import { Image } from "astro:assets"
+
+
+interface Frontmatter {
+  order: string;
+  name: string;
+  acronym: string;
+  role: string;
+  picture: string;
+}
+
+interface Props {
+  frontmatter: Frontmatter
+}
+
+const { frontmatter } = Astro.props as Props
+
+const { order, acronym, name, role, picture } = frontmatter
+
+const keywords = [
+  acronym,
+  name,
+  order,
+  role
+]
+
+---
+<Layout title={`${name} | APBN`} keywords={keywords}>
+  <section role="region" aria-label="post" class="w-full flex flex-col gap-2">
+    <div class="flex flex-col items-center justify-center gap-2">
+      <div class="text-center">
+        <h1 class="text-2xl md:text-5xl font-semibold">{acronym}</h1>
+        <span>{name}</span>
+      </div>
+      <div class="rounded-lg shadow-custom bg-white overflow-hidden">
+        <Image
+          src={picture}
+          width={800}
+          height={800}
+          class="w-32 h-32"
+          alt={name}
+          format="webp"
+        />
+      </div>
+    </div>
+    <article class="flex flex-col gap-2 max-w-2xl mx-auto center">
+      <slot />
+      <div class="w-full text-center flex flex-col md:flex-row justify-center items-center gap-2 p-2">
+        <ButtonLink title="all management team" href="/team" type="link" className="bt bt-orange dark:bt-white text-center inline-block w-full md:w-fit" />
+      </div> 
+    </article>
+  </section>
+</Layout>

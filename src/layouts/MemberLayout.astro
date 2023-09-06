@@ -1,0 +1,60 @@
+---
+import Layout from "./Layout.astro";
+import { Image } from "astro:assets"
+import ButtonLink from "~/components/partials/ButtonLink.astro";
+
+
+interface Frontmatter {
+  acronym: string;
+  fullname: string;
+  category: string;
+  website: string;
+  logo: string; 
+}
+
+interface Props {
+  frontmatter: Frontmatter
+}
+
+const { frontmatter } = Astro.props as Props
+
+const { fullname, acronym, website, logo } = frontmatter
+
+const keywords = [
+  acronym,
+  fullname,
+]
+
+---
+<Layout title={`${acronym} | APBN`} keywords={keywords}>
+  <section role="region" aria-label="post" class="w-full flex flex-col gap-2">
+    <div class="flex flex-col items-center justify-center gap-2">
+      <div class="text-center">
+        <h1 class="text-2xl md:text-5xl font-semibold">{acronym}</h1>
+        <span>{fullname}</span>
+      </div>
+      <div class="rounded-full p-4 shadow-custom bg-white overflow-hidden">
+        <Image
+          src={logo}
+          width={800}
+          height={800}
+          class="w-32 h-32"
+          alt={fullname}
+          format="webp"
+        />
+      </div>
+    </div>
+    <div>
+      <article class="flex flex-col">
+        <div class="max-w-2xl mx-auto center">
+          <slot />
+        </div>
+        <div class="w-full text-center flex flex-col md:flex-row justify-center items-center gap-2 p-2">
+          <ButtonLink title="all members" href="/members" type="link" className="bt bt-orange dark:bt-white text-center inline-block w-full md:w-fit" />
+          <ButtonLink title={`${acronym} homepage`} href={website} type="link" className="bt bt-orange dark:bt-white text-center inline-block w-full md:w-fit" />
+        </div>
+      </article>
+      <aside></aside>
+    </div>
+  </section>
+</Layout>
